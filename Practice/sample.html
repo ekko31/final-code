@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice coding</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+    <style>
+        .body {
+            margin: 0;
+            padding: 0;
+
+        }
+        h1 {
+            margin: 50px;
+            text-align: center;
+
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-gap: 10px;
+            padding: 20px;  
+        }
+        .map{
+            width: 100%;
+            height: 400px;
+        }
+        .profile{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; 
+            grid-gap: 10px;
+            padding: 10px;
+            background-color:antiquewhite;
+        }
+        .profile div img{
+            width: 100%;
+            height: 300px;
+        }
+        .profile div img:hover{
+            opacity: 0.5;
+        }
+
+
+     </style>
+
+</head>
+<body>
+    <h1>CAPSTONE</h1>
+    <div class="container">
+        <div class="profile">
+            <div id="profile1">
+                <a href="jerico.html"><img src="img/profile.jpg"/></a>
+                <h2>Jerico Mendoza</h2>
+                <p>BSIT</p>
+                <p>Programmer</p>
+                
+            </div>
+            <div id="profile2">
+                <a href="aira.html"><img src="img/p2.jpg"/></a>
+                <h2>Aira Bernabe</h2>
+                <p>BSIT</p>
+                <p>Payag sa 299</p>
+            </div>
+            <div id="profile3">
+                <a href="jade.html"><img src="img/p3.jpg"/></a>
+                <h2>Mark Jade Santos</h2>
+                <p>BSIT</p>
+                <p>Takot Kay father</p>
+            </div>
+        </div>
+        <div class="map" id="map">
+        </div>
+        <script>
+            var map = L.map('map').setView([16.903611086944377, 121.61344560053222], 15);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+            coords = [[16.902236502576812, 121.61086624058734], [16.903797703894128, 121.61325664741214], [16.902689, 121.611819]];
+            image = ["img/profile.jpg", "img/p2.jpg", "img/p3.jpg"]
+
+            let l = coords.length;
+    var profile1 = document.querySelector('#profile1')
+    var profile2= document.querySelector('#profile2')
+    var profile3 = document.querySelector('#profile3')
+          
+    profiles= [profile1, profile2, profile3]
+    for( let i = 0; i < l; i++) {
+        //popups
+    var pop = L.popup({
+        closeOnClick:true
+    }).setContent('<h3> <img src=' +image[i] + ' style="height:100px">');
+    //markers
+        var marker = L.marker(coords[i]).addTo(map).bindPopup(pop);
+    //zoomin
+    profiles[i].addEventListener("mouseover", ()=>{
+        map.flyTo(coords[i], 18);
+    })
+ 
+}
+        </script>
+    </div>
+</body>
+</html>
